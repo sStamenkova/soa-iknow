@@ -28,24 +28,8 @@ public class GateController {
     @Autowired
     private DiscoveryClient discoveryClient;
 
-
     @RequestMapping("/clients")
     public List<ServiceInstance> clients(@RequestParam(value="name") String name) {
         return this.discoveryClient.getInstances(name);
     }
-
-    @RequestMapping("/greeting")
-    public String greeting() {
-        Random rnd = new Random();
-
-        //my-app
-        List<ServiceInstance> services1 = discoveryClient.getInstances("my-app");
-        EurekaDiscoveryClient.EurekaServiceInstance service1 = (EurekaDiscoveryClient.EurekaServiceInstance) services1.get(rnd.nextInt(services1.size()));
-        String ip1 = service1.getInstanceInfo().getIPAddr();
-        String greeting1 = this.restTemplate.getForObject("http://"+ip1+":8080/", String.class);
-
-        return String.format("Got my-app answer: %s from ip %s", greeting1, ip1);
-    }
-
-
 }
