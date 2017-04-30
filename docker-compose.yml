@@ -1,0 +1,124 @@
+version: '2'
+services:
+  my-traefik:
+    image: traefik
+    command: -c /dev/null --web --docker --docker.domain=dck.mojserver.mk
+    labels:
+      - "traefik.enable=false"
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  131513-eureka:
+    image: 131513/soa-eureka
+    labels:
+      - "traefik.port=8761"
+      - "traefik.backend=131513-eureka"
+      - "traefik.frontend.rule=PathPrefixStrip:/131513-eureka"
+    expose:
+      - "8761"
+    ports:
+      - "8761:8761"
+
+  131513-zuul:
+    image: 131513/soa-zuul
+    labels:
+      - "traefik.port=8080"
+      - "traefik.backend=131513-zuul"
+      - "traefik.frontend.rule=PathPrefixStrip:/131513-zuul"
+
+  131513-gateway:
+    image: 131513/soa-gateway
+    labels:
+      - "traefik.port=8080"
+      - "traefik.backend=131513-gateway"
+      - "traefik.frontend.rule=PathPrefixStrip:/131513-gateway"
+
+  131513-mysql:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD:
+      MYSQL_USER: root
+      MYSQL_PASSWORD: databasepass!
+      MYSQL_DATABASE: iknow_db
+    volumes:
+      - 131513-datavolume:/var/lib/mysql
+    labels:
+      - "traefik.enable=false"
+
+  auth-service:
+    image: 131513/auth-service
+    labels:
+      - "traefik.port=8080"
+      - "traefik.backend=auth-service"
+      - "traefik.frontend.rule=PathPrefixStrip:/auth-service"
+    links:
+      - 131513-mysql
+      - 131513-eureka
+      - 131513-zuul
+      - 131513-gateway
+    depends_on:
+      - 131513-mysql
+      - 131513-traefik
+      - 131513-eureka
+      - 131513-zuul
+      - 131513-gateway
+
+  studentdossier-service:
+    image: 131513/studentdossier-service
+    labels:
+      - "traefik.port=8080"
+      - "traefik.backend=studentdossier-service"
+      - "traefik.frontend.rule=PathPrefixStrip:/studentdossier-service"
+    links:
+      - 131513-mysql
+      - 131513-eureka
+      - 131513-zuul
+      - 131513-gateway
+    depends_on:
+      - 131513-mysql
+      - 131513-traefik
+      - 131513-eureka
+      - 131513-zuul
+      - 131513-gateway
+
+  studentservice-service:
+    image: 131513/studentservice-service
+    labels:
+      - "traefik.port=8080"
+      - "traefik.backend=studentservice-service"
+      - "traefik.frontend.rule=PathPrefixStrip:/studentservice-service"
+    links:
+      - 131513-mysql
+      - 131513-eureka
+      - 131513-zuul
+      - 131513-gateway
+    depends_on:
+      - 131513-mysql
+      - 131513-traefik
+      - 131513-eureka
+      - 131513-zuul
+      - 131513-gateway
+
+  subject-service:
+    image: 131513/subject-service
+    labels:
+      - "traefik.port=8080"
+      - "traefik.backend=subject-service"
+      - "traefik.frontend.rule=PathPrefixStrip:/subject-service"
+    links:
+      - 131513-mysql
+      - 131513-eureka
+      - 131513-zuul
+      - 131513-gateway
+    depends_on:
+      - 131513-mysql
+      - 131513-traefik
+      - 131513-eureka
+      - 131513-zuul
+      - 131513-gateway
+
+volumes:
+  131513-datavolume: {}
