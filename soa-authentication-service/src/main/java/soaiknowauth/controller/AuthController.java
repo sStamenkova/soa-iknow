@@ -1,5 +1,6 @@
 package soaiknowauth.controller;
 
+import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -44,5 +45,4 @@ public class AuthController {
         System.out.println(securityService.findLoggedInUsername());
         return user;
     }
-
 }
