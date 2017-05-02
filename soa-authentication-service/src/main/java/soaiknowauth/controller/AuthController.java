@@ -45,9 +45,4 @@ public class AuthController {
         return user;
     }
 
-    @RequestMapping(value = "semesters", method = RequestMethod.POST)
-    public List<Long> getUserSemesters(@RequestParam("userId") long id){
-        User user = userService.findById(id);
-        return user.getSemesterIDs();
-    }
 }
