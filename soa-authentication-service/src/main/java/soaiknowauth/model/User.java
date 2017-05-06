@@ -28,8 +28,6 @@ public class User {
     @JsonManagedReference
     private List<Role> roles;
 
-    private List<Long> semesterIDs;
-
     public Long getId() {
         return id;
     }
@@ -95,13 +93,5 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public List<Long> getSemesterIDs() {
-        return semesterIDs;
-    }
-
-    public void setSemesterIDs(List<Long> semesterIDs) {
-        this.semesterIDs = semesterIDs;
     }
 }
