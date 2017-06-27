@@ -2,10 +2,7 @@ package soaiknowauth.controller;
 
 import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import soaiknowauth.model.User;
 import soaiknowauth.service.RoleService;
 import soaiknowauth.service.SecurityService;
@@ -44,5 +41,10 @@ public class AuthController {
         securityService.autologin(username, password);
         System.out.println(securityService.findLoggedInUsername());
         return user;
+    }
+
+    @RequestMapping(value = "user/{id}")
+    public User getUserById(@PathVariable("id") Long id){
+        return userService.findById(id);
     }
 }

@@ -20,7 +20,7 @@ public class Subject {
     private String grade;
     private boolean hasSignature;
 
-    private List<Long> semesterIDs;
+    private Long semesterID;
 
     public Subject(){}
 
@@ -31,6 +31,7 @@ public class Subject {
         this.professor = professor;
         isPassed = false;
         grade = "5";
+        hasSignature = false;
     }
 
     public Long getId() {
@@ -97,4 +98,11 @@ public class Subject {
         this.hasSignature = hasSignature;
     }
 
+    public Long getSemesterID() {
+        return semesterID;
+    }
+
+    public void setSemesterID(Long semesterID) {
+        this.semesterID = semesterID;
+    }
 }

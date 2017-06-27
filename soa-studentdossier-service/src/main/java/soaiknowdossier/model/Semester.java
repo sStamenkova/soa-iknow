@@ -19,10 +19,20 @@ public class Semester {
     private boolean isValid;
     private boolean isRegistered;
 
-    private List<Long> userIDs;
-    private List<Long> subjectIDs;
+    private Long userID;
 
     public Semester(){}
+
+    public Semester(String name, String field, String quota, double price){
+        this.name = name;
+        this.field = field;
+        this.quota = quota;
+        this.price = price;
+        this.paid = 0;
+        this.areTaxesPaid = false;
+        this.isValid = true;
+        this.isRegistered = false;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -88,20 +98,12 @@ public class Semester {
         return isRegistered;
     }
 
-    public List<Long> getUserIDs() {
-        return userIDs;
+    public Long getUserID() {
+        return userID;
     }
 
-    public void setUserIDs(List<Long> userIDs) {
-        this.userIDs = userIDs;
-    }
-
-    public List<Long> getSubjectIDs() {
-        return subjectIDs;
-    }
-
-    public void setSubjectIDs(List<Long> subjectIDs) {
-        this.subjectIDs = subjectIDs;
+    public void setUserID(Long userID) {
+        this.userID = userID;
     }
 }
 

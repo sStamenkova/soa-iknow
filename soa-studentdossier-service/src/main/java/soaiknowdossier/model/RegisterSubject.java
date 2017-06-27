@@ -19,7 +19,6 @@ public class RegisterSubject {
     private String examSession;
 
     private Long subjectID;
-
     private Long userID;
 
     public RegisterSubject(){
