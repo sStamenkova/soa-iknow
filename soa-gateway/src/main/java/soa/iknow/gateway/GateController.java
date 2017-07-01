@@ -74,4 +74,14 @@ public class GateController {
         System.out.println(response);
         return response;
     }
+    @RequestMapping("/announcement/{id}")
+    public Object getAnnouncement(@PathVariable(value = "id") Long id) {
+        Random rnd = new Random();
+        List<ServiceInstance> services1 = discoveryClient.getInstances("studentservice-service");
+        EurekaDiscoveryClient.EurekaServiceInstance service1 = (EurekaDiscoveryClient.EurekaServiceInstance) services1.get(rnd.nextInt(services1.size()));
+        String ip = service1.getInstanceInfo().getIPAddr();
+        Object response =  this.restTemplate.getForObject("http://" + ip + ":8082/announcement/" + id, Object.class);
+        System.out.println(response);
+        return response;
+    }
 }
