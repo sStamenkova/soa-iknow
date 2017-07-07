@@ -14,9 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 import java.util.Random;
 
-/**
- * Created by SimonaS on 30/04/2017.
- */
+
 
 @RestController
 public class GateController {
@@ -81,6 +79,16 @@ public class GateController {
         EurekaDiscoveryClient.EurekaServiceInstance service1 = (EurekaDiscoveryClient.EurekaServiceInstance) services1.get(rnd.nextInt(services1.size()));
         String ip = service1.getInstanceInfo().getIPAddr();
         Object response =  this.restTemplate.getForObject("http://" + ip + ":8082/announcement/" + id, Object.class);
+        System.out.println(response);
+        return response;
+    }
+    @RequestMapping("/document/{id}")
+    public Object getDocument(@PathVariable(value = "id") Long id) {
+        Random rnd = new Random();
+        List<ServiceInstance> services1 = discoveryClient.getInstances("document-service");
+        EurekaDiscoveryClient.EurekaServiceInstance service1 = (EurekaDiscoveryClient.EurekaServiceInstance) services1.get(rnd.nextInt(services1.size()));
+        String ip = service1.getInstanceInfo().getIPAddr();
+        Object response =  this.restTemplate.getForObject("http://" + ip + ":8024/document/" + id, Object.class);
         System.out.println(response);
         return response;
     }

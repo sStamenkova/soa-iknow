@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SoaDocumentServiceApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(SoaDocumentServiceApplication.class, args);
 	}
 }
