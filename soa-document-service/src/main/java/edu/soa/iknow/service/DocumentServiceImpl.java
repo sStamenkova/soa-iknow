@@ -35,14 +35,7 @@ public class DocumentServiceImpl implements DocumentService {
 
     @Override
     public List<Document> getDocumentsForUser(Long userId) {
-        List<Document> documents = (List<Document>) documentRepository.findAll();
-        List<Document> userDocuments = new ArrayList<>();
-        for (Document document : documents) {
-            if (document.getUserId().equals(userId)) {
-                userDocuments.add(document);
-            }
-        }
-        return userDocuments;
+      return documentRepository.findByUserId(userId);
     }
 
     @Override

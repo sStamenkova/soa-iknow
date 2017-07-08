@@ -48,4 +48,9 @@ public class SubjectController {
     public List<Subject> getSubjects(){
         return subjectService.findAll();
     }
+
+    @RequestMapping(value = "subjectsBySemester")
+    public List<Subject> getSubjectsBySemester(@RequestParam("semester") Long id){
+        return subjectService.findSubjectsBySemester(id);
+    }
 }

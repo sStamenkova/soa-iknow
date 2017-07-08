@@ -3,11 +3,21 @@ package edu.soa.iknow.controller;
 import edu.soa.iknow.model.ProfessorInfo;
 import edu.soa.iknow.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 @RestController
 @RequestMapping(value = "/")
 public class ProfessorController {
+
+    @Bean
+    RestTemplate restTemplate(){
+        return new RestTemplate();
+    }
+
+    @Autowired
+    RestTemplate restTemplate;
 
     @Autowired
     private ProfessorService professorService;
@@ -20,8 +30,13 @@ public class ProfessorController {
                                              @RequestParam("years") int years,
                                              @RequestParam("fulltime") boolean isFull
     ) {
-        ProfessorInfo professorInfo = professorService.createProfInfo(fieldOfLessons, status, numberOfSubjects,
+
+        Object user = restTemplate.getForObject("http://localhost:8000/user/" + userId, Object.class);
+        ProfessorInfo professorInfo = null;
+        if(user != null)
+        professorInfo = professorService.createProfInfo(fieldOfLessons, status, numberOfSubjects,
                 years, isFull, userId);
+
         return professorInfo;
     }
 
@@ -53,6 +68,5 @@ public class ProfessorController {
                                         @RequestParam("numberOfLessons") int numLessons) {
         professorService.changeNumberOfLessons(numLessons, id);
     }
-
 
 }

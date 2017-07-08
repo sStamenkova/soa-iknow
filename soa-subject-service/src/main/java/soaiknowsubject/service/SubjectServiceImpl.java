@@ -33,4 +33,9 @@ public class SubjectServiceImpl implements SubjectService {
     public List<Subject> findAll() {
         return (List<Subject>) subjectRepository.findAll();
     }
+
+    @Override
+    public List<Subject> findSubjectsBySemester(long id) {
+        return subjectRepository.findBySemesterID(id);
+    }
 }

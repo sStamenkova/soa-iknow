@@ -38,7 +38,6 @@ public class StudentDossierController {
         return registerSubjectService.findByUserId(id);
     }
 
-
     @RequestMapping(value = "semesters")
     public List<Semester> getUserSemesters(@RequestParam(value = "student") long id){
         return semesterService.findByUserId(id);
@@ -53,16 +52,8 @@ public class StudentDossierController {
                                            @RequestParam("subjectID") long subjectID,
                                            @RequestParam("userID") long userID){
 
-        RegisterSubject registerSubject = null;
+        return registerSubjectService.save(serialNumber, isConfirmed, date, areTaxesPaid, examSession, subjectID, userID);
 
-        Object user = restTemplate.getForObject("http://localhost:8000/user/" + userID, Object.class);
-        Object subject = restTemplate.getForObject("http://localhost:8000/subject/" + subjectID, Object.class);
-
-        if(user != null && subject != null) {
-            registerSubject = registerSubjectService.save(serialNumber, isConfirmed, date, areTaxesPaid, examSession, subjectID, userID);
-        }
-
-        return registerSubject;
     }
 
     @RequestMapping(value = "semester", method = RequestMethod.POST)
@@ -72,14 +63,7 @@ public class StudentDossierController {
                                 @RequestParam("price") double price,
                                 @RequestParam("userID") long userID) {
 
-        Semester semester = null;
-        Object user = restTemplate.getForObject("http://localhost:8000/user/" + userID, Object.class);
-
-        if(user != null) {
-            semester = semesterService.save(name, field, quota, price, userID);
-        }
-
-        return semester;
+        return semesterService.save(name, field, quota, price, userID);
     }
 
     @RequestMapping(value = "semester/{id}")

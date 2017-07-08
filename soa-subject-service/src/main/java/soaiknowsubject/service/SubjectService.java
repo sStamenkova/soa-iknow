@@ -11,4 +11,5 @@ public interface SubjectService {
     Subject save(String code, String name, String description, String professor, Long semesterID);
     Subject findById(Long id);
     List<Subject> findAll();
+    List<Subject> findSubjectsBySemester(long id);
 }
