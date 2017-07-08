@@ -30,14 +30,8 @@ public class ProfessorController {
                                              @RequestParam("years") int years,
                                              @RequestParam("fulltime") boolean isFull
     ) {
-
-        Object user = restTemplate.getForObject("http://localhost:8000/user/" + userId, Object.class);
-        ProfessorInfo professorInfo = null;
-        if(user != null)
-        professorInfo = professorService.createProfInfo(fieldOfLessons, status, numberOfSubjects,
+      return professorService.createProfInfo(fieldOfLessons, status, numberOfSubjects,
                 years, isFull, userId);
-
-        return professorInfo;
     }
 
     @RequestMapping(value = "professorInfo/{id}")
@@ -59,7 +53,7 @@ public class ProfessorController {
 
     @RequestMapping(value = "changeProfessorWorkTime", method = RequestMethod.POST)
     public void changeProfessorWorkTime(@RequestParam("id") long id,
-                                        @RequestParam("years") boolean isFull) {
+                                        @RequestParam("fulltime") boolean isFull) {
         professorService.workTime(isFull, id);
     }
 

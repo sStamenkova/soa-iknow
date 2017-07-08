@@ -13,13 +13,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-/**
- * Created by SimonaS on 08/07/2017.
- */
 
 @RestController
 @RequestMapping("/dossier")
-public class StudentDossierController {
+public class DossierGateController {
     @Autowired
     RestTemplate restTemplate;
 

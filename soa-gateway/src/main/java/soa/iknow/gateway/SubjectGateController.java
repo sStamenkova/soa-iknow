@@ -12,13 +12,10 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 import java.util.Random;
 
-/**
- * Created by SimonaS on 08/07/2017.
- */
 
 @RestController
-@RequestMapping("/subjects")
-public class SubjectController {
+@RequestMapping("/sub")
+public class SubjectGateController {
     @Autowired
     RestTemplate restTemplate;
 
@@ -39,7 +36,9 @@ public class SubjectController {
     }
 
     @RequestMapping(value = "subject", method = RequestMethod.POST)
-    public Object save(@RequestParam("code") String code, @RequestParam("name") String name, @RequestParam("description") String description, @RequestParam("professor") String professor, @RequestParam("semesterID") Long semesterID) {
+    public Object save(@RequestParam("code") String code, @RequestParam("name") String name,
+                       @RequestParam("description") String description, @RequestParam("professor") String professor,
+                       @RequestParam("semesterID") Long semesterID) {
         Object subject = null;
 
         Object semester = restTemplate.getForObject("http://localhost:8000/dossier/semester/" + semesterID, Object.class);

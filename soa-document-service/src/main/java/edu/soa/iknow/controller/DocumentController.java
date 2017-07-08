@@ -31,7 +31,7 @@ public class DocumentController {
         return documentService.getDocumentsForUser(userId);
     }
     @RequestMapping(value = "payForDocument", method = RequestMethod.POST)
-    public Document payForDocument(@PathVariable("id") long id){
+    public Document payForDocument(@RequestParam("id") long id){
         return documentService.payForDocument(id);
     }
 

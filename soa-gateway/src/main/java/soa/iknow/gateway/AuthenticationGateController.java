@@ -16,13 +16,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-/**
- * Created by SimonaS on 08/07/2017.
- */
 
 @RestController
 @RequestMapping("/auth")
-public class AuthenticationController {
+public class AuthenticationGateController {
 
     @Autowired
     RestTemplate restTemplate;

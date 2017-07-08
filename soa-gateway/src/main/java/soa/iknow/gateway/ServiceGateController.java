@@ -12,12 +12,9 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 import java.util.Random;
 
-/**
- * Created by SimonaS on 08/07/2017.
- */
-
 @RestController
-public class StudentServiceController {
+@RequestMapping("/notes")
+public class ServiceGateController {
     @Autowired
     RestTemplate restTemplate;
 
