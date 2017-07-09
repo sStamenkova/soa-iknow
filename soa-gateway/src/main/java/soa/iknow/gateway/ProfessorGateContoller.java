@@ -25,11 +25,11 @@ public class ProfessorGateContoller {
     @RequestMapping("/professorInfo/{id}")
     public Object getProfessorInfo(@PathVariable(value = "id") Long id) {
         Random rnd = new Random();
-        List<ServiceInstance> services1 = discoveryClient.getInstances("professor-service");
+        List<ServiceInstance> services1 = discoveryClient.getInstances("soa-zuul");
         EurekaDiscoveryClient.EurekaServiceInstance service1 = (EurekaDiscoveryClient.EurekaServiceInstance)
                 services1.get(rnd.nextInt(services1.size()));
         String ip = service1.getInstanceInfo().getIPAddr();
-        Object response = this.restTemplate.getForObject("http://" + ip + ":8023/professorInfo/" + id, Object.class);
+        Object response = this.restTemplate.getForObject("http://" + ip + ":8001/professor-service/professorInfo/" + id, Object.class);
         System.out.println(response);
         return response;
     }
@@ -54,11 +54,11 @@ public class ProfessorGateContoller {
             parameters.add("numberOfOSubjects", numberOfSubjects);
             parameters.add("years", years);
             parameters.add("fulltime", isFull);
-            List<ServiceInstance> services1 = discoveryClient.getInstances("professor-service");
+            List<ServiceInstance> services1 = discoveryClient.getInstances("soa-zuul");
             EurekaDiscoveryClient.EurekaServiceInstance service1 = (EurekaDiscoveryClient.EurekaServiceInstance)
                     services1.get(rnd.nextInt(services1.size()));
             String ip = service1.getInstanceInfo().getIPAddr();
-            profInfo = this.restTemplate.postForObject("http://" + ip + ":8083/createProfessorInfo/", parameters, Object.class);
+            profInfo = this.restTemplate.postForObject("http://" + ip + ":8001/professor-service/createProfessorInfo/", parameters, Object.class);
         }
         System.out.println(profInfo);
         return profInfo;
@@ -71,11 +71,11 @@ public class ProfessorGateContoller {
         MultiValueMap<String, Object> parameters = new LinkedMultiValueMap<>();
         parameters.add("id", id);
         parameters.add("years", years);
-        List<ServiceInstance> services1 = discoveryClient.getInstances("professor-service");
+        List<ServiceInstance> services1 = discoveryClient.getInstances("soa-zuul");
         EurekaDiscoveryClient.EurekaServiceInstance service1 = (EurekaDiscoveryClient.EurekaServiceInstance)
                 services1.get(rnd.nextInt(services1.size()));
         String ip = service1.getInstanceInfo().getIPAddr();
-        this.restTemplate.postForObject("http://" + ip + ":8083/changeProfessorWorkExperience/", parameters, Object.class);
+        this.restTemplate.postForObject("http://" + ip + ":8001/professor-service/changeProfessorWorkExperience/", parameters, Object.class);
 
     }
 
@@ -86,11 +86,11 @@ public class ProfessorGateContoller {
         MultiValueMap<String, Object> parameters = new LinkedMultiValueMap<>();
         parameters.add("id", id);
         parameters.add("status", status);
-        List<ServiceInstance> services1 = discoveryClient.getInstances("professor-service");
+        List<ServiceInstance> services1 = discoveryClient.getInstances("soa-zuul");
         EurekaDiscoveryClient.EurekaServiceInstance service1 = (EurekaDiscoveryClient.EurekaServiceInstance)
                 services1.get(rnd.nextInt(services1.size()));
         String ip = service1.getInstanceInfo().getIPAddr();
-        this.restTemplate.postForObject("http://" + ip + ":8083/changeProfessorStatus/", parameters, Object.class);
+        this.restTemplate.postForObject("http://" + ip + ":8001/professor-service/changeProfessorStatus/", parameters, Object.class);
     }
 
     @RequestMapping(value = "changeProfessorWorkTime", method = RequestMethod.POST)
@@ -100,11 +100,11 @@ public class ProfessorGateContoller {
         MultiValueMap<String, Object> parameters = new LinkedMultiValueMap<>();
         parameters.add("id", id);
         parameters.add("fulltime", isFull);
-        List<ServiceInstance> services1 = discoveryClient.getInstances("professor-service");
+        List<ServiceInstance> services1 = discoveryClient.getInstances("soa-zuul");
         EurekaDiscoveryClient.EurekaServiceInstance service1 = (EurekaDiscoveryClient.EurekaServiceInstance)
                 services1.get(rnd.nextInt(services1.size()));
         String ip = service1.getInstanceInfo().getIPAddr();
-        this.restTemplate.postForObject("http://" + ip + ":8083/changeProfessorWorkTime/", parameters, Object.class);
+        this.restTemplate.postForObject("http://" + ip + ":8001/professor-service/changeProfessorWorkTime/", parameters, Object.class);
     }
 
     @RequestMapping(value = "changeProfessorNumLessons", method = RequestMethod.POST)
@@ -114,11 +114,11 @@ public class ProfessorGateContoller {
         MultiValueMap<String, Object> parameters = new LinkedMultiValueMap<>();
         parameters.add("id", id);
         parameters.add("numberOfLessons", numLessons);
-        List<ServiceInstance> services1 = discoveryClient.getInstances("professor-service");
+        List<ServiceInstance> services1 = discoveryClient.getInstances("soa-zuul");
         EurekaDiscoveryClient.EurekaServiceInstance service1 = (EurekaDiscoveryClient.EurekaServiceInstance)
                 services1.get(rnd.nextInt(services1.size()));
         String ip = service1.getInstanceInfo().getIPAddr();
-        this.restTemplate.postForObject("http://" + ip + ":8083/changeProfessorNumLessons/", parameters, Object.class);
+        this.restTemplate.postForObject("http://" + ip + ":8001/professor-service/changeProfessorNumLessons/", parameters, Object.class);
     }
 
 }

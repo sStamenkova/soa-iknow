@@ -16,8 +16,8 @@ public class DocumentController {
 
     @RequestMapping(value = "newDocument", method = RequestMethod.POST)
     public Document save(@RequestParam("userId") long userId, @RequestParam("content") String content,
-                         @RequestParam("file") String file, @RequestParam("cost") String cost ) {
-        Document newDocument = documentService.saveDocument(userId,content,file,cost,false);
+                         @RequestParam("name") String name, @RequestParam("code") String code, @RequestParam("cost") String cost ) {
+        Document newDocument = documentService.saveDocument(userId,content,name,cost, code, false);
         return newDocument;
     }
 

@@ -9,7 +9,7 @@ import java.util.List;
  * Created by Popov on 07.7.2017.
  */
 public interface DocumentService {
-    Document saveDocument(Long userId,String content, String file,String cost,boolean isPayed);
+    Document saveDocument(Long userId,String content, String file,String cost, String code, boolean isPayed);
     Document getDocument(Long documentId);
     List<Document> getDocumentsForUser(Long userId);
     Document payForDocument(Long documentId);

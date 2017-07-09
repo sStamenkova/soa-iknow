@@ -17,7 +17,7 @@ public class DocumentServiceImpl implements DocumentService {
     private DocumentRepository documentRepository;
 
     @Override
-    public Document saveDocument(Long userId, String content, String file, String cost, boolean isPayed) {
+    public Document saveDocument(Long userId, String content, String file, String cost, String code, boolean isPayed) {
         Document document = new Document();
         document.setContent(content);
         document.setDate(new Date());
@@ -25,6 +25,7 @@ public class DocumentServiceImpl implements DocumentService {
         document.setCost(cost);
         document.setPayed(isPayed);
         document.setUserId(userId);
+        document.setCode(code);
         return documentRepository.save(document);
     }
 
@@ -35,7 +36,7 @@ public class DocumentServiceImpl implements DocumentService {
 
     @Override
     public List<Document> getDocumentsForUser(Long userId) {
-      return documentRepository.findByUserId(userId);
+        return documentRepository.findByUserId(userId);
     }
 
     @Override

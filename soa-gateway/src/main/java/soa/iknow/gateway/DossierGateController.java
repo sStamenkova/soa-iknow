@@ -27,11 +27,11 @@ public class DossierGateController {
     public Object getSemester(@PathVariable(value = "id") Long id){
         Random rnd = new Random();
 
-        List<ServiceInstance> services1 = discoveryClient.getInstances("studentdossier-service");
+        List<ServiceInstance> services1 = discoveryClient.getInstances("soa-zuul");
         EurekaDiscoveryClient.EurekaServiceInstance service1 = (EurekaDiscoveryClient.EurekaServiceInstance) services1.get(rnd.nextInt(services1.size()));
         String ip = service1.getInstanceInfo().getIPAddr();
 
-        Object response =  this.restTemplate.getForObject("http://" + ip + ":8088/semester/" + id, Object.class);
+        Object response =  this.restTemplate.getForObject("http://" + ip + ":8001/studentdossier-service/semester/" + id, Object.class);
         System.out.println(response);
         return response;
     }
@@ -55,11 +55,11 @@ public class DossierGateController {
             parameters.add("price", price);
             parameters.add("userID", userID);
 
-            List<ServiceInstance> services1 = discoveryClient.getInstances("studentdossier-service");
+            List<ServiceInstance> services1 = discoveryClient.getInstances("soa-zuul");
             EurekaDiscoveryClient.EurekaServiceInstance service1 = (EurekaDiscoveryClient.EurekaServiceInstance) services1.get(rnd.nextInt(services1.size()));
             String ip = service1.getInstanceInfo().getIPAddr();
 
-            semester =  this.restTemplate.postForObject("http://" + ip + ":8088/semester/", parameters, Object.class);
+            semester =  this.restTemplate.postForObject("http://" + ip + ":8001/studentdossier-service/semester/", parameters, Object.class);
             System.out.println(semester);
         }
 
@@ -91,11 +91,11 @@ public class DossierGateController {
             parameters.add("subjectID", subjectID);
             parameters.add("userID", userID);
 
-            List<ServiceInstance> services1 = discoveryClient.getInstances("studentdossier-service");
+            List<ServiceInstance> services1 = discoveryClient.getInstances("soa-zuul");
             EurekaDiscoveryClient.EurekaServiceInstance service1 = (EurekaDiscoveryClient.EurekaServiceInstance) services1.get(rnd.nextInt(services1.size()));
             String ip = service1.getInstanceInfo().getIPAddr();
 
-            registerSubject =  this.restTemplate.postForObject("http://" + ip + ":8088/registerSubject/", parameters, Object.class);
+            registerSubject =  this.restTemplate.postForObject("http://" + ip + ":8001/studentdossier-service/registerSubject/", parameters, Object.class);
             System.out.println(registerSubject);
 
         }
@@ -107,11 +107,11 @@ public class DossierGateController {
     public Object getUserSemesters(@RequestParam(value = "student") long id){
         Random rnd = new Random();
 
-        List<ServiceInstance> services1 = discoveryClient.getInstances("studentdossier-service");
+        List<ServiceInstance> services1 = discoveryClient.getInstances("soa-zuul");
         EurekaDiscoveryClient.EurekaServiceInstance service1 = (EurekaDiscoveryClient.EurekaServiceInstance) services1.get(rnd.nextInt(services1.size()));
         String ip = service1.getInstanceInfo().getIPAddr();
 
-        Object response =  this.restTemplate.getForObject("http://" + ip + ":8088/semesters?student=" + id, Object.class);
+        Object response =  this.restTemplate.getForObject("http://" + ip + ":8001/studentdossier-service/semesters?student=" + id, Object.class);
         System.out.println(response);
         return response;
     }
@@ -120,11 +120,11 @@ public class DossierGateController {
     public Object listStudentRegisters(@RequestParam(value = "student") long id){
         Random rnd = new Random();
 
-        List<ServiceInstance> services1 = discoveryClient.getInstances("studentdossier-service");
+        List<ServiceInstance> services1 = discoveryClient.getInstances("soa-zuul");
         EurekaDiscoveryClient.EurekaServiceInstance service1 = (EurekaDiscoveryClient.EurekaServiceInstance) services1.get(rnd.nextInt(services1.size()));
         String ip = service1.getInstanceInfo().getIPAddr();
 
-        Object response =  this.restTemplate.getForObject("http://" + ip + ":8088/studentRegistry?student=" + id, Object.class);
+        Object response =  this.restTemplate.getForObject("http://" + ip + ":8001/studentdossier-service/studentRegistry?student=" + id, Object.class);
         System.out.println(response);
         return response;
     }

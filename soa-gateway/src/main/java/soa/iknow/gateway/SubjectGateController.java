@@ -26,11 +26,11 @@ public class SubjectGateController {
     public Object getSubject(@PathVariable(value = "id") Long id) {
         Random rnd = new Random();
 
-        List<ServiceInstance> services1 = discoveryClient.getInstances("subject-service");
+        List<ServiceInstance> services1 = discoveryClient.getInstances("soa-zuul");
         EurekaDiscoveryClient.EurekaServiceInstance service1 = (EurekaDiscoveryClient.EurekaServiceInstance) services1.get(rnd.nextInt(services1.size()));
         String ip = service1.getInstanceInfo().getIPAddr();
 
-        Object response =  this.restTemplate.getForObject("http://" + ip + ":8083/subject/" + id, Object.class);
+        Object response =  this.restTemplate.getForObject("http://" + ip + ":8001/subject-service/subject/" + id, Object.class);
         System.out.println(response);
         return response;
     }
@@ -52,11 +52,11 @@ public class SubjectGateController {
             parameters.add("professor", professor);
             parameters.add("semesterID", semesterID);
 
-            List<ServiceInstance> services1 = discoveryClient.getInstances("subject-service");
+            List<ServiceInstance> services1 = discoveryClient.getInstances("soa-zuul");
             EurekaDiscoveryClient.EurekaServiceInstance service1 = (EurekaDiscoveryClient.EurekaServiceInstance) services1.get(rnd.nextInt(services1.size()));
             String ip = service1.getInstanceInfo().getIPAddr();
 
-            subject =  this.restTemplate.postForObject("http://" + ip + ":8083/subject/", parameters, Object.class);
+            subject =  this.restTemplate.postForObject("http://" + ip + ":8001/subject-service/subject/", parameters, Object.class);
             System.out.println(subject);
         }
 
@@ -67,11 +67,11 @@ public class SubjectGateController {
     public Object getSubjects(){
         Random rnd = new Random();
 
-        List<ServiceInstance> services1 = discoveryClient.getInstances("subject-service");
+        List<ServiceInstance> services1 = discoveryClient.getInstances("soa-zuul");
         EurekaDiscoveryClient.EurekaServiceInstance service1 = (EurekaDiscoveryClient.EurekaServiceInstance) services1.get(rnd.nextInt(services1.size()));
         String ip = service1.getInstanceInfo().getIPAddr();
 
-        Object response =  this.restTemplate.getForObject("http://" + ip + ":8083/subject/", Object.class);
+        Object response =  this.restTemplate.getForObject("http://" + ip + ":8001/subject-service/subject/", Object.class);
         System.out.println(response);
         return response;
     }
@@ -80,11 +80,11 @@ public class SubjectGateController {
     public Object getSubjectsBySemester(@RequestParam("semester") Long id){
         Random rnd = new Random();
 
-        List<ServiceInstance> services1 = discoveryClient.getInstances("subject-service");
+        List<ServiceInstance> services1 = discoveryClient.getInstances("soa-zuul");
         EurekaDiscoveryClient.EurekaServiceInstance service1 = (EurekaDiscoveryClient.EurekaServiceInstance) services1.get(rnd.nextInt(services1.size()));
         String ip = service1.getInstanceInfo().getIPAddr();
 
-        Object response =  this.restTemplate.getForObject("http://" + ip + ":8083/subjectsBySemester?semester=" + id, Object.class);
+        Object response =  this.restTemplate.getForObject("http://" + ip + ":8001/subject-service/subjectsBySemester?semester=" + id, Object.class);
         System.out.println(response);
         return response;
     }

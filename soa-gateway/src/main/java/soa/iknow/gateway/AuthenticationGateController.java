@@ -31,11 +31,11 @@ public class AuthenticationGateController {
     public Object getUser(@PathVariable(value = "id") Long id){
         Random rnd = new Random();
 
-        List<ServiceInstance> services1 = discoveryClient.getInstances("auth-service");
+        List<ServiceInstance> services1 = discoveryClient.getInstances("soa-zuul");
         EurekaDiscoveryClient.EurekaServiceInstance service1 = (EurekaDiscoveryClient.EurekaServiceInstance) services1.get(rnd.nextInt(services1.size()));
         String ip = service1.getInstanceInfo().getIPAddr();
 
-        Object response =  this.restTemplate.getForObject("http://" + ip + ":8080/user/" + id, Object.class);
+        Object response =  this.restTemplate.getForObject("http://" + ip + ":8001/auth-service/user/" + id, Object.class);
         System.out.println(response);
         return response;
     }
@@ -58,11 +58,11 @@ public class AuthenticationGateController {
         parameters.add("passwordConfirm", passwordConfirm);
         parameters.add("role", role);
 
-        List<ServiceInstance> services1 = discoveryClient.getInstances("auth-service");
+        List<ServiceInstance> services1 = discoveryClient.getInstances("soa-zuul");
         EurekaDiscoveryClient.EurekaServiceInstance service1 = (EurekaDiscoveryClient.EurekaServiceInstance) services1.get(rnd.nextInt(services1.size()));
         String ip = service1.getInstanceInfo().getIPAddr();
 
-        Object response =  this.restTemplate.postForObject("http://" + ip + ":8080/register/", parameters, Object.class);
+        Object response =  this.restTemplate.postForObject("http://" + ip + ":8001/auth-service/register/", parameters, Object.class);
         System.out.println(response);
         return response;
     }
@@ -74,11 +74,11 @@ public class AuthenticationGateController {
         parameters.add("username", username);
         parameters.add("password", password);
 
-        List<ServiceInstance> services1 = discoveryClient.getInstances("auth-service");
+        List<ServiceInstance> services1 = discoveryClient.getInstances("soa-zuul");
         EurekaDiscoveryClient.EurekaServiceInstance service1 = (EurekaDiscoveryClient.EurekaServiceInstance) services1.get(rnd.nextInt(services1.size()));
         String ip = service1.getInstanceInfo().getIPAddr();
 
-        Object response =  this.restTemplate.postForObject("http://" + ip + ":8080/login/", parameters, Object.class);
+        Object response =  this.restTemplate.postForObject("http://" + ip + ":8001/auth-service/login/", parameters, Object.class);
         System.out.println(response);
         return response;
     }
